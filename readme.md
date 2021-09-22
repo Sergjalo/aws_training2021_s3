@@ -104,29 +104,40 @@ launched from bash shell as
 ![06_versioning_cli.png](/06_versioning_cli.png)
 
 
-## task 3
+# Sub-task 3 – practice more AWS CLI hacking and play with permissions
 
-### 1
+## CLI list all the objects
+```
+Using AWS CLI list all the objects in the S3 bucket from the first sub-task of this module. In the response, you'll see a lot of additional data for each object, play with the "--query" parameter to filter out only S3 object keys from the response.
+```
 
 aws s3api list-objects-v2 --bucket sergii-kotov-task01-static-website --query "Contents[].[Key]" --profile FullAccessUserS3
 ![07_list_keys.png](/07_list_keys.png)
 
-### 2
+## Uload & List with different profiles
 
-aws s3 cp ./ver1/file1.txt s3://sergii-kotov-task01-static-website --profile FullAccessUserS3
-![.png](/.png)
+```
+Using different users from module 2, try to execute the following commands via AWS CLI:
+a. upload new file to the S3 bucket
+b. list all the objects in the S3 bucket
+```
 
-### 3
+*aws s3 cp ./ver1/file1.txt s3://sergii-kotov-task01-static-website --profile FullAccessUserEC2*
 
-aws s3 cp ./ver1/file1.txt s3://sergii-kotov-task01-static-website --profile FullAccessUserEC2
-aws s3 cp ./ver1/file1.txt s3://sergii-kotov-task01-static-website --profile FullAccessUserS3
+*aws s3 cp ./ver1/file1.txt s3://sergii-kotov-task01-static-website --profile FullAccessUserS3*
 
-aws s3api list-objects-v2 --bucket sergii-kotov-task01-static-website --profile FullAccessUserEC2
+*aws s3api list-objects-v2 --bucket sergii-kotov-task01-static-website --profile FullAccessUserEC2*
 
 ![08_upload_with_different_profiles.png](/08_upload_with_different_profiles.png)
 
-### 4
-aws s3api list-objects-v2 --bucket sergii-kotov-task01-static-website --query "Contents[].[Key, Size]" --output table --profile FullAccessUserS3
-
 ![09_list_with_different_profile.png](/09_list_with_different_profile.png)
+
+## play with the "--output"
+
+```
+Optional: play with the "--output" parameter and list all the objects in the S3 bucket with their size in a "human-readable" format as a table, for example
+```
+*aws s3api list-objects-v2 --bucket sergii-kotov-task01-static-website --query "Contents[].[Key, Size]" --output table --profile FullAccessUserS3*
+
+![10_list_astable_view_2fields.png](/10_list_astable_view_2fields.png)
 
